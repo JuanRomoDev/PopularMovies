@@ -6,6 +6,7 @@ buildscript {
             'targetSdk' : 27,
             'supportLibrary' : '27.1.1',
             'junit' : '4.12',
+            'robolectric' : '3.8',
             'runner' : '1.0.2',
             'espresso' : '3.0.2'
     ]

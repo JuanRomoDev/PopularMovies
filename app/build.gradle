@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', "TheMovieDb_ApiKey", TheMovieDb_ApiKey
     }
     buildTypes {
         release {
@@ -16,11 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
     implementation "com.android.support:appcompat-v7:${versions.supportLibrary}"
     testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.robolectric:robolectric:${versions.robolectric}"
     androidTestImplementation "com.android.support.test:runner:${versions.runner}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${versions.espresso}"
 }
