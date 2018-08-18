@@ -7,6 +7,7 @@ buildscript {
             'supportLibrary' : '27.1.1',
             'junit' : '4.12',
             'robolectric' : '3.8',
+            'equalsverifier' : '2.5.2',
             'runner' : '1.0.2',
             'espresso' : '3.0.2'
     ]

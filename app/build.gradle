@@ -29,6 +29,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${versions.supportLibrary}"
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"
+    testImplementation "nl.jqno.equalsverifier:equalsverifier:${versions.equalsverifier}"
     androidTestImplementation "com.android.support.test:runner:${versions.runner}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${versions.espresso}"
 }

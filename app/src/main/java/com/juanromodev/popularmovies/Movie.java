@@ -3,14 +3,16 @@ package com.juanromodev.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class Movie implements Parcelable {
 
-    private int id;
-    private String originalTitle;
-    private String overview;
-    private String releaseDate;
-    private double voteAverage;
-    private String posterPath;
+    private final int id;
+    private final String originalTitle;
+    private final String overview;
+    private final String releaseDate;
+    private final double voteAverage;
+    private final String posterPath;
 
     public Movie(int id, String originalTitle, String overview, String releaseDate,
                  double voteAverage, String posterPath) {
@@ -26,48 +28,47 @@ public class Movie implements Parcelable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getOriginalTitle() {
         return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
     }
 
     public String getOverview() {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
     public String getReleaseDate() {
         return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
     public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Movie)) {
+            return false;
+        }
+
+        Movie otherMovie = (Movie) obj;
+
+        return id == otherMovie.id &&
+               Objects.equals(originalTitle, otherMovie.originalTitle) &&
+               Objects.equals(overview, otherMovie.overview) &&
+               Objects.equals(releaseDate, otherMovie.releaseDate) &&
+               Double.compare(voteAverage, otherMovie.voteAverage) == 0 &&
+               Objects.equals(posterPath, otherMovie.posterPath);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(id, originalTitle, overview, releaseDate, voteAverage, posterPath);
     }
 
     @Override
