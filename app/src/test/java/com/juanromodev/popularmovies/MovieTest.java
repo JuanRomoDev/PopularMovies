@@ -1,10 +1,14 @@
 package com.juanromodev.popularmovies;
 
+import android.os.Parcel;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 public class MovieTest {
@@ -13,5 +17,19 @@ public class MovieTest {
     public void equalsVerifier() {
         EqualsVerifier.forClass(Movie.class)
                 .verify();
+    }
+
+    @Test
+    public void movieIsParcelable() {
+        Movie movie = new Movie(0, "", "", "", 0.0, "");
+
+        Parcel parcel = Parcel.obtain();
+
+        movie.writeToParcel(parcel, 0);
+
+        parcel.setDataPosition(0);
+        Movie retrievedMovie = Movie.CREATOR.createFromParcel(parcel);
+
+        assertEquals(movie, retrievedMovie);
     }
 }
