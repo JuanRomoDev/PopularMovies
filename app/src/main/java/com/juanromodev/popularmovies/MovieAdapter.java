@@ -27,15 +27,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.list_item_movie, parent, false);
-        return new MovieViewHolder(v);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View view = layoutInflater.inflate(R.layout.list_item_movie, parent, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolder viewHolder, int position) {
         Movie movie = movies[position];
-        holder.bind(movie);
+        viewHolder.bindMovie(movie);
     }
 
     @Override
@@ -45,18 +45,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView moviePosterIv;
+        private ImageView moviePosterImageView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            moviePosterIv = itemView.findViewById(R.id.iv_movie_poster);
+            moviePosterImageView = itemView.findViewById(R.id.movie_poster_image_view);
         }
 
-        public void bind(Movie movie) {
+        public void bindMovie(Movie movie) {
             Picasso.get()
                     .load(NetworkUtils.buildW342PosterSizeImageUrl(movie.getPosterPath()).toString())
                     .placeholder(R.drawable.poster_w342_placeholder)
-                    .into(moviePosterIv);
+                    .into(moviePosterImageView);
         }
     }
 }
