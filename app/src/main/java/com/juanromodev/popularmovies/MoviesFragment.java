@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -62,11 +60,11 @@ public class MoviesFragment extends Fragment {
 
             Movie[] movies = null;
             try {
-                String movieJsonResponse = NetworkUtils.getResponseFromHttpUrl(url);
+                String moviePageJsonResponseString = NetworkUtils.getResponseFromHttpUrl(url);
 
-                movies = JsonUtils.getMoviesFromJson(movieJsonResponse);
+                movies = JsonUtils.getMoviesFromMoviePageJsonString(moviePageJsonResponseString);
 
-            } catch (IOException | JSONException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 

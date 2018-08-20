@@ -1,42 +1,19 @@
 package com.juanromodev.popularmovies;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class JsonUtils {
 
-    public static Movie[] getMoviesFromJson(String moviesJsonStr)
-            throws JSONException {
+    public static Movie[] getMoviesFromMoviePageJsonString(String moviePageJsonStr) {
 
-        String results = "results";
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
 
-        String id = "id";
-        String originalTitle = "original_title";
-        String overview = "overview";
-        String releaseDate = "release_date";
-        String voteAverage = "vote_average";
-        String posterPath = "poster_path";
+        MoviePage moviePage = gson.fromJson(moviePageJsonStr, MoviePage.class);
 
-        JSONObject responseJson = new JSONObject(moviesJsonStr);
-
-        JSONArray moviesJsonArray = responseJson.getJSONArray(results);
-
-        Movie[] movies = new Movie[moviesJsonArray.length()];
-
-        for (int i = 0; i < moviesJsonArray.length(); i++) {
-            JSONObject movieJson = moviesJsonArray.getJSONObject(i);
-
-            Movie movie = new Movie(movieJson.getInt(id),
-                                    movieJson.getString(originalTitle),
-                                    movieJson.getString(overview),
-                                    movieJson.getString(releaseDate),
-                                    movieJson.getDouble(voteAverage),
-                                    movieJson.getString(posterPath));
-
-            movies[i] = movie;
-        }
-
-        return movies;
+        return moviePage.getResults();
     }
 }
