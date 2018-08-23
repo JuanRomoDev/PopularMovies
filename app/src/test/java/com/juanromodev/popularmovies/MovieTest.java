@@ -2,11 +2,14 @@ package com.juanromodev.popularmovies;
 
 import android.os.Parcel;
 
+import com.juanromodev.popularmovies.model.Movie;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,6 +19,7 @@ public class MovieTest {
     @Test
     public void equalsVerifier() {
         EqualsVerifier.forClass(Movie.class)
+                .suppress(Warning.NONFINAL_FIELDS)
                 .verify();
     }
 

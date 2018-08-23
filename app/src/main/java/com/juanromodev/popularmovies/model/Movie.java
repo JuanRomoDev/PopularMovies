@@ -1,4 +1,4 @@
-package com.juanromodev.popularmovies;
+package com.juanromodev.popularmovies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,12 +7,12 @@ import java.util.Objects;
 
 public class Movie implements Parcelable {
 
-    private final int id;
-    private final String originalTitle;
-    private final String overview;
-    private final String releaseDate;
-    private final double voteAverage;
-    private final String posterPath;
+    private int id;
+    private String originalTitle;
+    private String overview;
+    private String releaseDate;
+    private double voteAverage;
+    private String posterPath;
 
     public Movie(int id, String originalTitle, String overview, String releaseDate,
                  double voteAverage, String posterPath) {

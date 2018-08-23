@@ -1,4 +1,4 @@
-package com.juanromodev.popularmovies;
+package com.juanromodev.popularmovies.ui.movies;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.juanromodev.popularmovies.R;
+import com.juanromodev.popularmovies.model.MovieSort;
 
 public class MoviesActivity extends AppCompatActivity {
 
@@ -40,9 +43,9 @@ public class MoviesActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return MoviesFragment.newInstance(SortMoviesBy.POPULAR);
+                    return MoviesFragment.newInstance(MovieSort.POPULAR);
                 case 1:
-                    return MoviesFragment.newInstance(SortMoviesBy.TOP_RATED);
+                    return MoviesFragment.newInstance(MovieSort.TOP_RATED);
                 default:
                     return null;
             }
@@ -58,9 +61,9 @@ public class MoviesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.popular_tab);
+                    return getString(R.string.popular);
                 case 1:
-                    return getString(R.string.top_rated_tab);
+                    return getString(R.string.top_rated);
                 default:
                     return null;
             }

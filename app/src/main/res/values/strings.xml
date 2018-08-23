@@ -4,7 +4,7 @@
     <string name="app_name">Popular Movies</string>
 
     <!-- Movies -->
-    <string name="popular_tab">Popular</string>
-    <string name="top_rated_tab">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
 
 </resources>

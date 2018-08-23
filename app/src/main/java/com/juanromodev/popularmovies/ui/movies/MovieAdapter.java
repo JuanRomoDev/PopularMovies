@@ -1,6 +1,5 @@
-package com.juanromodev.popularmovies;
+package com.juanromodev.popularmovies.ui.movies;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.juanromodev.popularmovies.R;
+import com.juanromodev.popularmovies.model.Movie;
+import com.juanromodev.popularmovies.model.PosterSize;
+import com.juanromodev.popularmovies.util.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -18,17 +21,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.movies = movies;
     }
 
-    public void setMovies(Movie[] movies) {
-        this.movies = movies;
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.list_item_movie, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item_movie, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -54,8 +51,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public void bindMovie(Movie movie) {
             Picasso.get()
-                    .load(NetworkUtils.buildW342PosterSizeImageUrl(movie.getPosterPath()).toString())
-                    .placeholder(R.drawable.poster_w342_placeholder)
+                    .load(NetworkUtils.buildImageUri(PosterSize.W342, movie.getPosterPath()))
+                    .placeholder(android.R.color.white)
                     .into(moviePosterImageView);
         }
     }

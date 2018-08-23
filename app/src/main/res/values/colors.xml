@@ -4,9 +4,6 @@
     <!-- App Palette -->
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#F44336</color>
-
-    <!-- Basic -->
-    <color name="white">#FFFFFF</color>
+    <color name="colorAccent">@color/colorPrimary</color> <!-- Monochrome -->
 
 </resources>

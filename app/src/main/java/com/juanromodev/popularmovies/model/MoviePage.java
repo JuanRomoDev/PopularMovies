@@ -1,4 +1,4 @@
-package com.juanromodev.popularmovies;
+package com.juanromodev.popularmovies.model;
 
 public class MoviePage {
 

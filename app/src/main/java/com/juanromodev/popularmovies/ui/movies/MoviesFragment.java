@@ -1,4 +1,4 @@
-package com.juanromodev.popularmovies;
+package com.juanromodev.popularmovies.ui.movies;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,19 +12,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.juanromodev.popularmovies.R;
+import com.juanromodev.popularmovies.model.Movie;
+import com.juanromodev.popularmovies.model.MovieSort;
+import com.juanromodev.popularmovies.util.JsonUtils;
+import com.juanromodev.popularmovies.util.NetworkUtils;
+
 import java.io.IOException;
 import java.net.URL;
 
 public class MoviesFragment extends Fragment {
 
-    private static final String ARG_SORT_MOVIES_BY = "sortMoviesBy";
+    private static final String ARG_MOVIE_SORT = "movieSort";
 
-    private RecyclerView moviesRecyclerView;
+    private RecyclerView movieRecyclerView;
     private MovieAdapter movieAdapter;
 
-    public static Fragment newInstance(SortMoviesBy sortMoviesBy) {
+    public static Fragment newInstance(MovieSort movieSort) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_SORT_MOVIES_BY, sortMoviesBy);
+        args.putSerializable(ARG_MOVIE_SORT, movieSort);
 
         Fragment fragment = new MoviesFragment();
         fragment.setArguments(args);
@@ -38,16 +44,17 @@ public class MoviesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
 
-        moviesRecyclerView = view.findViewById(R.id.movies_recycler_view);
+        movieRecyclerView = view.findViewById(R.id.movie_recycler_view);
 
-        int numberOfColumns = getActivity().getResources().getInteger(R.integer.number_of_columns);
+        int numberOfColumns = getActivity().getResources()
+                .getInteger(R.integer.number_of_columns);
         LayoutManager layoutManager = new GridLayoutManager(getActivity(), numberOfColumns);
-        moviesRecyclerView.setLayoutManager(layoutManager);
+        movieRecyclerView.setLayoutManager(layoutManager);
 
-        moviesRecyclerView.setHasFixedSize(true);
+        movieRecyclerView.setHasFixedSize(true);
 
-        SortMoviesBy sortMoviesBy = (SortMoviesBy) getArguments().getSerializable(ARG_SORT_MOVIES_BY);
-        new FetchMovieTask().execute(sortMoviesBy.getUrl());
+        MovieSort movieSort = (MovieSort) getArguments().getSerializable(ARG_MOVIE_SORT);
+        new FetchMovieTask().execute(NetworkUtils.buildMovieUrl(movieSort));
 
         return view;
     }
@@ -60,9 +67,9 @@ public class MoviesFragment extends Fragment {
 
             Movie[] movies = null;
             try {
-                String moviePageJsonResponseString = NetworkUtils.getResponseFromHttpUrl(url);
+                String moviePageJsonResponse = NetworkUtils.getResponseFromHttpUrl(url);
 
-                movies = JsonUtils.getMoviesFromMoviePageJsonString(moviePageJsonResponseString);
+                movies = JsonUtils.getMoviesFromMoviePageJson(moviePageJsonResponse);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,13 +81,8 @@ public class MoviesFragment extends Fragment {
         @Override
         protected void onPostExecute(Movie[] movies) {
             if (movies != null) {
-
-                if (movieAdapter == null) {
-                    movieAdapter = new MovieAdapter(movies);
-                    moviesRecyclerView.setAdapter(movieAdapter);
-                } else {
-                    movieAdapter.setMovies(movies);
-                }
+                movieAdapter = new MovieAdapter(movies);
+                movieRecyclerView.setAdapter(movieAdapter);
             }
         }
     }
