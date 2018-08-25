@@ -9,7 +9,6 @@ import com.juanromodev.popularmovies.model.MoviePage;
 public class JsonUtils {
 
     public static Movie[] getMoviesFromMoviePageJson(String moviePageJson) {
-
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();

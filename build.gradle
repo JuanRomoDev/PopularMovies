@@ -4,7 +4,7 @@ buildscript {
             'compileSdk' : 27,
             'minSdk' : 21,
             'targetSdk' : 27,
-            'supportLibrary' : '27.1.0',
+            'supportLibrary' : '26.0.0-beta1',
             'constraintLayout' : '1.1.2',
             'picasso' : '2.71828',
             'gson' : '2.8.5',

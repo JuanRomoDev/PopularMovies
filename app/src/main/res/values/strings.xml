@@ -7,4 +7,11 @@
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
 
+    <!-- Movie Detail -->
+    <string name="overview">Overview</string>
+    <plurals name="vote_count">
+        <item quantity="one">%1$d Rating</item>
+        <item quantity="other">%1$d Ratings</item>
+    </plurals>
+
 </resources>

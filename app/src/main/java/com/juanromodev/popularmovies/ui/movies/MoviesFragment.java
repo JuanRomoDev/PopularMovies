@@ -1,5 +1,6 @@
 package com.juanromodev.popularmovies.ui.movies;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,13 +16,15 @@ import android.view.ViewGroup;
 import com.juanromodev.popularmovies.R;
 import com.juanromodev.popularmovies.model.Movie;
 import com.juanromodev.popularmovies.model.MovieSort;
+import com.juanromodev.popularmovies.ui.movie_detail.MovieDetailActivity;
 import com.juanromodev.popularmovies.util.JsonUtils;
 import com.juanromodev.popularmovies.util.NetworkUtils;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment
+        implements MovieAdapter.OnMovieClickListener {
 
     private static final String ARG_MOVIE_SORT = "movieSort";
 
@@ -53,10 +56,19 @@ public class MoviesFragment extends Fragment {
 
         movieRecyclerView.setHasFixedSize(true);
 
+        movieAdapter = new MovieAdapter(this);
+        movieRecyclerView.setAdapter(movieAdapter);
+
         MovieSort movieSort = (MovieSort) getArguments().getSerializable(ARG_MOVIE_SORT);
         new FetchMovieTask().execute(NetworkUtils.buildMovieUrl(movieSort));
 
         return view;
+    }
+
+    @Override
+    public void onMovieClick(Movie movie) {
+        Intent intent = MovieDetailActivity.newIntent(getActivity(), movie);
+        startActivity(intent);
     }
 
     public class FetchMovieTask extends AsyncTask<URL, Void, Movie[]> {
@@ -81,8 +93,7 @@ public class MoviesFragment extends Fragment {
         @Override
         protected void onPostExecute(Movie[] movies) {
             if (movies != null) {
-                movieAdapter = new MovieAdapter(movies);
-                movieRecyclerView.setAdapter(movieAdapter);
+                movieAdapter.setMovies(movies);
             }
         }
     }

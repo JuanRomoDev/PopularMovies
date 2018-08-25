@@ -15,10 +15,21 @@ import com.squareup.picasso.Picasso;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
+    private OnMovieClickListener movieClickListener;
+
     private Movie[] movies;
 
-    public MovieAdapter(Movie[] movies) {
+    public interface OnMovieClickListener {
+        void onMovieClick(Movie movie);
+    }
+
+    public MovieAdapter(OnMovieClickListener movieClickListener) {
+        this.movieClickListener = movieClickListener;
+    }
+
+    public void setMovies(Movie[] movies) {
         this.movies = movies;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,20 +51,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies == null ? 0 : movies.length;
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+
+        private Movie movie;
 
         private ImageView moviePosterImageView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+
             moviePosterImageView = itemView.findViewById(R.id.movie_poster_image_view);
         }
 
         public void bindMovie(Movie movie) {
+            this.movie = movie;
+
             Picasso.get()
-                    .load(NetworkUtils.buildImageUri(PosterSize.W342, movie.getPosterPath()))
+                    .load(NetworkUtils.buildImageUri(PosterSize.W342.getPath(), movie.getPosterPath()))
                     .placeholder(android.R.color.white)
                     .into(moviePosterImageView);
+        }
+
+        @Override
+        public void onClick(View view) {
+            movieClickListener.onMovieClick(movie);
         }
     }
 }

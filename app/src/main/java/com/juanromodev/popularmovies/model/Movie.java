@@ -12,16 +12,20 @@ public class Movie implements Parcelable {
     private String overview;
     private String releaseDate;
     private double voteAverage;
+    private int voteCount;
     private String posterPath;
+    private String backdropPath;
 
     public Movie(int id, String originalTitle, String overview, String releaseDate,
-                 double voteAverage, String posterPath) {
+                 double voteAverage, int voteCount, String posterPath, String backdropPath) {
         this.id = id;
         this.originalTitle = originalTitle;
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.voteAverage = voteAverage;
+        this.voteCount = voteCount;
         this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
     }
 
     public int getId() {
@@ -44,8 +48,16 @@ public class Movie implements Parcelable {
         return voteAverage;
     }
 
+    public int getVoteCount() {
+        return voteCount;
+    }
+
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
     @Override
@@ -63,12 +75,15 @@ public class Movie implements Parcelable {
                Objects.equals(overview, otherMovie.overview) &&
                Objects.equals(releaseDate, otherMovie.releaseDate) &&
                Double.compare(voteAverage, otherMovie.voteAverage) == 0 &&
-               Objects.equals(posterPath, otherMovie.posterPath);
+               voteCount == otherMovie.voteCount &&
+               Objects.equals(posterPath, otherMovie.posterPath) &&
+               Objects.equals(backdropPath, otherMovie.backdropPath);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(id, originalTitle, overview, releaseDate, voteAverage, posterPath);
+        return Objects.hash(id, originalTitle, overview, releaseDate,
+                            voteAverage, voteCount, posterPath, backdropPath);
     }
 
     @Override
@@ -83,7 +98,9 @@ public class Movie implements Parcelable {
         out.writeString(overview);
         out.writeString(releaseDate);
         out.writeDouble(voteAverage);
+        out.writeInt(voteCount);
         out.writeString(posterPath);
+        out.writeString(backdropPath);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR
@@ -103,6 +120,8 @@ public class Movie implements Parcelable {
         overview = in.readString();
         releaseDate = in.readString();
         voteAverage = in.readDouble();
+        voteCount = in.readInt();
         posterPath = in.readString();
+        backdropPath = in.readString();
     }
 }

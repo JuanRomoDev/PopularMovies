@@ -25,7 +25,7 @@ public class MovieTest {
 
     @Test
     public void movieIsParcelable() {
-        Movie movie = new Movie(0, "", "", "", 0.0, "");
+        Movie movie = new Movie(1, "Str1", "Str2", "Str3", 1.0, 1, "Str4", "Str5");
 
         Parcel parcel = Parcel.obtain();
 

@@ -4,7 +4,6 @@ import android.net.Uri;
 
 import com.juanromodev.popularmovies.BuildConfig;
 import com.juanromodev.popularmovies.model.MovieSort;
-import com.juanromodev.popularmovies.model.PosterSize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +36,7 @@ public class NetworkUtils {
         return url;
     }
 
-    public static Uri buildImageUri(PosterSize posterSize, String imagePath) {
+    public static Uri buildImageUri(String sizePath, String imagePath) {
         if (imagePath == null) {
             return null;
         } else if (imagePath.startsWith("/")) {
@@ -45,7 +44,7 @@ public class NetworkUtils {
         }
 
         return Uri.parse(IMAGE_BASE_URL).buildUpon()
-                .appendPath(posterSize.getPath())
+                .appendPath(sizePath)
                 .appendPath(imagePath)
                 .build();
     }
